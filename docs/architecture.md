@@ -159,4 +159,4 @@ flowchart LR
 | `types/index.js` | JSDoc type definitions |
 | `.github/workflows/upstream-sync.yml` | Quarterly upstream sync CI |
 | `CUSTOMIZATIONS.md` | Diff log: what we changed from upstream |
-| `docs/adr/` | Architecture decision records |
+| `docs/decisions/` | Architecture decision records |

@@ -4,7 +4,7 @@ A self-maintained fork of [vivek-nexus/transcriptonic](https://github.com/vivek-
 a Chrome extension that captures Google Meet transcripts locally and optionally posts them to a webhook.
 
 This fork exists for internal use. It is not published to the Chrome Web Store.
-See [ADR-001](docs/adr/ADR-001-fork-and-maintenance-strategy.md) for the full rationale.
+See [ADR-001](docs/decisions/ADR-001-fork-and-maintenance-strategy.md) for the full rationale.
 
 ---
 
@@ -99,7 +99,7 @@ To trigger a sync manually: go to **Actions → Sync upstream → Run workflow**
 ## Docs
 
 - [Architecture](docs/architecture.md) — extension internals and fork maintenance flow
-- [ADR-001](docs/adr/ADR-001-fork-and-maintenance-strategy.md) — decision record for this fork
+- [ADR-001](docs/decisions/ADR-001-fork-and-maintenance-strategy.md) — decision record for this fork
 - [CUSTOMIZATIONS.md](CUSTOMIZATIONS.md) — all changes made relative to upstream
 
 ---
