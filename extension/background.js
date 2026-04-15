@@ -463,7 +463,7 @@ function downloadTranscript(index, isWebhookEnabled) {
 
                 // Add branding
                 content += "\n\n---------------\n"
-                content += "Transcript saved using TranscripTonic Chrome extension (https://chromewebstore.google.com/detail/ciepnfnceimjehngolkijpnbappkkiag)"
+                content += "Transcript saved using meet-transcripts (https://github.com/patrick204nqh/meet-transcripts)"
                 content += "\n---------------"
 
                 const blob = new Blob([content], { type: "text/plain" })

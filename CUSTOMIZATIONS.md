@@ -26,6 +26,14 @@ what must be preserved and what may conflict.
 |------|--------|--------|
 | `.github/workflows/upstream-sync.yml` | Added quarterly upstream sync workflow | Automate tracking of upstream changes |
 
+### Branding
+
+| File | Change | Reason |
+|------|--------|--------|
+| `extension/manifest.json` | `name` → `meet-transcripts` | Internal identity |
+| `extension/manifest.json` | `description` → internal build copy | Not published to Chrome Web Store |
+| `extension/background.js:466` | Transcript footer → points to this repo | Remove upstream Chrome Store link |
+
 ---
 
 ## Merge review checklist
