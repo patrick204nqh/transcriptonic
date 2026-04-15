@@ -1,0 +1,56 @@
+import { test, expect } from './fixtures/extension.js';
+
+test.describe('Meetings page', () => {
+  test.beforeEach(async ({ page, extensionId }) => {
+    await page.goto(`chrome-extension://${extensionId}/meetings.html`);
+  });
+
+  test('renders the page title', async ({ page }) => {
+    await expect(page.locator('h1')).toHaveText('TranscripTonic');
+  });
+
+  test('shows the Last 10 meetings section', async ({ page }) => {
+    await expect(page.locator('#last-10-meetings h2')).toHaveText('Last 10 meetings');
+  });
+
+  test('shows the meetings table with correct column headers', async ({ page }) => {
+    const headers = page.locator('table thead th');
+    await expect(headers.nth(0)).toHaveText('Meeting title');
+    await expect(headers.nth(1)).toHaveText('Meeting software');
+    await expect(headers.nth(2)).toHaveText('Meeting start time and duration');
+    await expect(headers.nth(3)).toHaveText('Webhook status');
+  });
+
+  test('shows the Recover last meeting button', async ({ page }) => {
+    await expect(page.locator('#recover-last-meeting')).toBeVisible();
+  });
+
+  test('shows the webhooks configuration section', async ({ page }) => {
+    await expect(page.locator('#webhooks')).toBeVisible();
+    await expect(page.locator('#webhook-url')).toBeVisible();
+    await expect(page.locator('#save-webhook')).toBeVisible();
+  });
+
+  test('auto-post webhook checkbox is checked by default', async ({ page }) => {
+    await expect(page.locator('#auto-post-webhook')).toBeChecked();
+  });
+
+  test('shows Simple and Advanced webhook body radio options', async ({ page }) => {
+    await expect(page.locator('#simple-webhook-body')).toBeVisible();
+    await expect(page.locator('label[for="simple-webhook-body"]')).toContainText('Simple webhook body');
+
+    await expect(page.locator('#advanced-webhook-body')).toBeVisible();
+    await expect(page.locator('label[for="advanced-webhook-body"]')).toContainText('Advanced webhook body');
+  });
+
+  test('simple webhook body is selected by default', async ({ page }) => {
+    await expect(page.locator('#simple-webhook-body')).toBeChecked();
+    await expect(page.locator('#advanced-webhook-body')).not.toBeChecked();
+  });
+
+  test('can enter a webhook URL', async ({ page }) => {
+    const input = page.locator('#webhook-url');
+    await input.fill('https://hooks.example.com/test');
+    await expect(input).toHaveValue('https://hooks.example.com/test');
+  });
+});

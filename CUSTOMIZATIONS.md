@@ -33,8 +33,17 @@ what must be preserved and what may conflict.
 | `extension/manifest.json` | `name` → `meet-transcripts` | Internal identity |
 | `extension/manifest.json` | `version` reset to `1.0.0` | Own versioning line from fork point |
 | `extension/manifest.json` | `description` → internal build copy | Not published to Chrome Web Store |
-| `extension/background.js:456,501` | Download folder renamed `meet-transcripts/` | Remove upstream folder name |
-| `extension/background.js:466` | Transcript footer → points to this repo | Remove upstream Chrome Store link |
+| `extension/background.js` | Download folder renamed `meet-transcripts/` | Remove upstream folder name |
+| `extension/background.js` | Transcript footer → points to this repo | Remove upstream Chrome Store link |
+
+### Telemetry removed
+
+| File | Change | Reason |
+|------|--------|--------|
+| `extension/background.js` | Removed analytics and error-logging `fetch` calls | No data sent to upstream author's Google Sheets |
+| `extension/content-google-meet.js` | `logError` → `console.error`; `checkExtensionStatus` always resolves 200; icon uses local asset | Remove external calls; prevent upstream minVersion check disabling the extension |
+| `extension/content-zoom.js` | Same as above | Same |
+| `extension/content-teams.js` | Same as above | Same |
 
 ---
 

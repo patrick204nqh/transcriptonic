@@ -1,3 +1,4 @@
+node_modules/
 extension.zip
 /extension/_metadata
 .envrc

@@ -539,7 +539,7 @@ function zoom() {
 
       logo.setAttribute(
         "src",
-        "https://ejnana.github.io/transcripto-status/icon.png"
+        chrome.runtime.getURL("icon.png")
       )
       logo.setAttribute("height", "32px")
       logo.setAttribute("width", "32px")
@@ -594,12 +594,11 @@ function zoom() {
 
 
   /**
-   * @description Logs anonymous errors to a Google sheet for swift debugging
    * @param {string} code
    * @param {any} err
    */
   function logError(code, err) {
-    fetch(`https://script.google.com/macros/s/AKfycbwN-bVkVv3YX4qvrEVwG9oSup0eEd3R22kgKahsQ3bCTzlXfRuaiO7sUVzH9ONfhL4wbA/exec?version=${chrome.runtime.getManifest().version}&code=${code}&error=${encodeURIComponent(err)}&meetingSoftware=${meetingSoftware}`, { mode: "no-cors" })
+    console.error(`[meet-transcripts] Error ${code}:`, err)
   }
 
   /**
@@ -622,42 +621,12 @@ function zoom() {
 
 
   /**
-   * @description Fetches extension status from GitHub and saves to chrome storage. Defaults to 200, if remote server is unavailable.
+   * @description Returns operational status. Always resolves as running for internal build.
    */
   function checkExtensionStatus() {
-    return new Promise((resolve, reject) => {
-      // Set default value as 200
-      extensionStatusJSON = { status: 200, message: "TranscripTonic is ready <br /> <b>Please switch on Zoom captions to begin (More > Captions)</b>" }
-
-      // https://stackoverflow.com/a/42518434
-      fetch(
-        "https://ejnana.github.io/transcripto-status/status-prod-zoom.json",
-        { cache: "no-store" }
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          const minVersion = result.minVersion
-
-          // Disable extension if version is below the min version
-          if (!meetsMinVersion(chrome.runtime.getManifest().version, minVersion)) {
-            extensionStatusJSON.status = 400
-            extensionStatusJSON.message = `<strong>TranscripTonic is not running</strong> <br /> Please update to v${minVersion} by following <a href="https://github.com/vivek-nexus/transcriptonic/wiki/Manually-update-TranscripTonic" target="_blank">these instructions</a>`
-          }
-          else {
-            // Update status based on response
-            extensionStatusJSON.status = result.status
-            extensionStatusJSON.message = result.message
-          }
-
-          console.log("Extension status fetched and saved")
-          resolve("Extension status fetched and saved")
-        })
-        .catch((err) => {
-          console.error(err)
-          reject("Could not fetch extension status")
-
-          logError("008", err)
-        })
+    return new Promise((resolve) => {
+      extensionStatusJSON = { status: 200, message: "meet-transcripts is ready <br /> <b>Please switch on Zoom captions to begin (More > Captions)</b>" }
+      resolve("Extension status set to operational")
     })
   }
 
