@@ -1,20 +1,20 @@
 # Architecture
 
-This document describes the architecture of the TranscripTonic Chrome extension
-as it runs in this fork, and how the fork itself is maintained.
+This document describes the architecture of the meet-transcripts Chrome extension
+(a fork of TranscripTonic) and how the fork itself is maintained.
 
 ---
 
 ## Extension architecture
 
-TranscripTonic is a **Manifest v3 Chrome extension** composed of three layers:
+meet-transcripts is a **Manifest v3 Chrome extension** composed of three layers:
 a background service worker, platform-specific content scripts, and a UI layer
 (popup + meetings page).
 
 ```mermaid
 graph TD
     subgraph Chrome["Chrome Browser"]
-        subgraph Extension["TranscripTonic Extension"]
+        subgraph Extension["meet-transcripts Extension"]
             BG["Background Service Worker\nbackground.js\n─────────────────\nMeeting lifecycle\nWebhook dispatch\nFile download\nStorage management"]
 
             subgraph ContentScripts["Content Scripts (injected per platform)"]

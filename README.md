@@ -1,9 +1,9 @@
-# TranscripTonic (internal fork)
+# meet-transcripts
 
-A self-maintained fork of [vivek-nexus/transcriptonic](https://github.com/vivek-nexus/transcriptonic) —
-a Chrome extension that captures Google Meet transcripts locally and optionally posts them to a webhook.
+Internal Google Meet transcript tool — a self-maintained fork of
+[vivek-nexus/transcriptonic](https://github.com/vivek-nexus/transcriptonic).
 
-This fork exists for internal use. It is not published to the Chrome Web Store.
+Not published to the Chrome Web Store. Installed as a sideloaded extension for internal use.
 See [ADR-001](docs/decisions/ADR-001-fork-and-maintenance-strategy.md) for the full rationale.
 
 ---
@@ -26,7 +26,7 @@ ever-changing DOM. We just take those updates on our own terms.
 
 ## What it does
 
-TranscripTonic runs in the background during Google Meet calls. It reads the live captions and
+meet-transcripts runs in the background during Google Meet calls. It reads the live captions and
 assembles a transcript locally in the browser. At the end of each meeting:
 
 - Downloads the transcript as a `.txt` file
@@ -49,7 +49,7 @@ This fork is installed in Chrome as an unpacked extension. It requires **develop
 3. Enable **Developer mode** (toggle in the top-right corner)
 4. Click **Load unpacked**
 5. Select the `extension/` folder from this repository
-6. The TranscripTonic icon will appear in your Chrome toolbar
+6. The extension icon will appear in your Chrome toolbar
 
 To update to a newer version: pull the latest `main`, then click the refresh icon on the extension card
 at `chrome://extensions`.
