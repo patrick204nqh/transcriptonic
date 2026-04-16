@@ -366,6 +366,7 @@
                 <h2>Last 10 meetings</h2>
                 <button id="recover-last-meeting">Recover last meeting</button>
             </div>
+            <p class="sub-text" style="margin: 0 0 1rem 0;">Only the last 10 meetings are stored. Download or post to a webhook to keep older ones.</p>
             <div id="meetings-table-container">
                 <table>
                     <thead>
@@ -404,6 +405,7 @@
                             <input type="url" id="webhook-url" placeholder="https://your-webhook-url.com">
                             <button id="save-webhook">Save</button>
                         </div>
+                        <p class="sub-text" style="margin: 0.5rem 0 0 0; font-size: smaller;">Saving will ask for browser permission to send data to this domain.</p>
                     </form>
 
                     <hr />
@@ -415,7 +417,7 @@
                                 Automatically post transcript to webhook URL, after each meeting
                             </label>
                         </div>
-                        <div class="checkbox-group" style="margin-top: 1.5rem; display: none;">
+                        <div class="checkbox-group" style="margin-top: 1.5rem;">
                             <input type="checkbox" id="auto-download-file" checked>
                             <label for="auto-download-file">
                                 Automatically download transcript text file, after each meeting

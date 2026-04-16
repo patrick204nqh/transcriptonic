@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 scrollTo({ top: 0, behavior: "smooth" })
                 if (response.success) {
                     if (response.message === "No recovery needed") {
-                        alert("Nothing to recover—you're on top of the world!")
+                        alert("No unprocessed meetings found.")
                     }
                     else {
                         alert("Last meeting recovered successfully!")
@@ -49,14 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 else {
                     const parsedError = /** @type {ErrorObject} */ (response.message)
-                    if (parsedError.errorCode === "013") {
-                        alert(parsedError.errorMessage)
-                    }
-                    else if (parsedError.errorCode === "014") {
-                        alert("Nothing to recover—you're on top of the world!")
+                    if (parsedError.errorCode === "013" || parsedError.errorCode === "014") {
+                        alert("No unprocessed meetings found.")
                     }
                     else {
-                        alert("Could not recover last meeting!")
+                        alert("Could not recover last meeting.")
                         console.error(parsedError.errorMessage)
                     }
                 }
@@ -82,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (autoDownloadCheckbox instanceof HTMLInputElement) {
                 autoDownloadCheckbox.checked = resultSync.autoDownloadFileAfterMeeting !== false
             }
-            updateAutoDownloadCheckBox()
 
             // Set radio button state
             if (resultSync.webhookBodyType === "advanced") {
@@ -119,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Webhook URL saved!")
                     })
                 }).catch((error) => {
-                    alert("Fine! No webhooks for you!")
+                    alert("Permission required to use webhooks. You can try again anytime.")
                     console.error("Webhook permission error:", error)
                 })
             }
@@ -127,38 +123,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Auto save auto-post setting
         autoPostCheckbox.addEventListener("change", function () {
-            // Save webhook URL and settings
             chrome.storage.sync.set({
                 autoPostWebhookAfterMeeting: autoPostCheckbox.checked,
-            }, function () {
-                updateAutoDownloadCheckBox()
-            })
+            }, function () { })
         })
 
         if (autoDownloadCheckbox instanceof HTMLInputElement) {
             autoDownloadCheckbox.addEventListener("change", function () {
-                if (!autoDownloadCheckbox.checked) {
-                    if (!confirm("Text file serves as a harmless backup, you sure you don't need it?")) {
-                        autoDownloadCheckbox.checked = true
-                        return
-                    }
-                }
                 chrome.storage.sync.set({
                     autoDownloadFileAfterMeeting: autoDownloadCheckbox.checked,
                 }, function () { })
             })
-        }
-
-        function updateAutoDownloadCheckBox() {
-            if (autoDownloadCheckbox?.parentElement instanceof HTMLDivElement && autoPostCheckbox instanceof HTMLInputElement) {
-                autoDownloadCheckbox.parentElement.style.display = autoPostCheckbox.checked ? "flex" : "none"
-                if (!autoPostCheckbox.checked && autoDownloadCheckbox instanceof HTMLInputElement) {
-                    autoDownloadCheckbox.checked = true
-                    chrome.storage.sync.set({
-                        autoDownloadFileAfterMeeting: true,
-                    }, function () { })
-                }
-            }
         }
 
         // Auto save webhook body type

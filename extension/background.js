@@ -34,6 +34,8 @@ chrome.runtime.onMessage.addListener(function (messageUnTyped, sender, sendRespo
                 console.log("Meeting tab id saved")
             })
         })
+        chrome.action.setBadgeText({ text: "REC" })
+        chrome.action.setBadgeBackgroundColor({ color: "#c0392b" })
     }
 
     if (message.type === "meeting_ended") {
@@ -488,7 +490,7 @@ function postTranscriptToWebhook(index) {
                                     type: "basic",
                                     iconUrl: "icon.png",
                                     title: "Could not post webhook!",
-                                    message: "Click to view status and retry. Check console for more details."
+                                    message: `${error.message || "Unknown error"}. Click to view and retry.`
                                 }, function (notificationId) {
                                     // Handle notification click
                                     chrome.notifications.onClicked.addListener(function (clickedNotificationId) {
@@ -549,6 +551,7 @@ function getChatMessagesString(chatMessages) {
 }
 
 function clearTabIdAndApplyUpdate() {
+    chrome.action.setBadgeText({ text: "" })
     // Nullify to indicate end of meeting processing
     chrome.storage.local.set({ meetingTabId: null }, function () {
         console.log("Meeting tab id cleared for next meeting")
@@ -596,29 +599,6 @@ function recoverLastMeeting() {
             }
             else {
                 reject({ errorCode: "013", errorMessage: "No meetings found. May be attend one?" })
-            }
-        })
-    })
-}
-
-/**
- * @param {Platform} platform
- */
-function getPermissionStatus(platform) {
-    return new Promise((resolve, reject) => {
-        const config = PLATFORM_CONFIGS[platform]
-
-        if (!config) {
-            reject(`Invalid platform: ${platform}`)
-            return
-        }
-
-        chrome.permissions.contains({ origins: config.matches }).then((hasPermission) => {
-            if (hasPermission) {
-                resolve("Enabled")
-            }
-            else {
-                resolve("Disabled")
             }
         })
     })

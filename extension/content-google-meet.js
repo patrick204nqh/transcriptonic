@@ -665,23 +665,6 @@ function logError(code, err) {
 }
 
 /**
- * @description Checks if the installed extension version meets the minimum required version.
- * @param {string} oldVer
- * @param {string} newVer
- */
-function meetsMinVersion(oldVer, newVer) {
-  const oldParts = oldVer.split('.')
-  const newParts = newVer.split('.')
-  for (var i = 0; i < newParts.length; i++) {
-    const a = ~~newParts[i] // parse int
-    const b = ~~oldParts[i] // parse int
-    if (a > b) return false
-    if (a < b) return true
-  }
-  return true
-}
-
-/**
  * @description Returns operational status. Always resolves as running for internal build.
  */
 function checkExtensionStatus() {
