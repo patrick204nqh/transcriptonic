@@ -6,6 +6,23 @@ Not published to the Chrome Web Store. Installed as a sideloaded extension.
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><strong>Popup</strong></td>
+    <td align="center"><strong>Meeting history</strong></td>
+    <td align="center"><strong>Webhook config</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/assets/popup.png" alt="Extension popup" width="280"></td>
+    <td><img src="docs/assets/meetings-table.png" alt="Meeting history" width="560"></td>
+    <td><img src="docs/assets/webhooks.png" alt="Webhook configuration" width="560"></td>
+  </tr>
+</table>
+
+---
+
 ## What it does
 
 meet-transcripts runs in the background during Google Meet calls. It reads the live captions and assembles a transcript locally in the browser. At the end of each meeting:
