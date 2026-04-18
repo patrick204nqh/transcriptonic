@@ -4,30 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>meet-transcripts — Meetings</title>
+    <title>Meet Transcripts — Meetings</title>
     <style>
         :root {
-            --bg:            #07111b;
-            --surface:       #0c1e2e;
-            --surface-2:     #122839;
-            --surface-3:     #1a3347;
-            --brand:         #2dd4bf;
-            --brand-dim:     rgba(45, 212, 191, 0.1);
-            --brand-border:  rgba(45, 212, 191, 0.2);
-            --text:          #dde9f4;
-            --text-2:        #7ea8c0;
-            --text-3:        #3d6880;
-            --border:        rgba(255, 255, 255, 0.07);
-            --border-brand:  rgba(45, 212, 191, 0.15);
+            --brand:         #38bdf8;
+            --brand-dim:     rgba(56, 189, 248, 0.12);
+            --brand-border:  rgba(56, 189, 248, 0.3);
+            --text:          #f1f5f9;
+            --text-2:        #94a3b8;
+            --text-3:        #475569;
+            --glass:         rgba(255, 255, 255, 0.05);
+            --glass-hover:   rgba(255, 255, 255, 0.08);
+            --glass-border:  rgba(255, 255, 255, 0.1);
+            --border:        rgba(255, 255, 255, 0.08);
+            --border-brand:  rgba(56, 189, 248, 0.25);
             --success:       #34d399;
             --success-bg:    rgba(52, 211, 153, 0.12);
             --error:         #f87171;
             --error-bg:      rgba(248, 113, 113, 0.12);
             --warning:       #fbbf24;
             --warning-bg:    rgba(251, 191, 36, 0.12);
-            --r-sm:          6px;
-            --r:             10px;
-            --r-lg:          14px;
+            --r-sm:          8px;
+            --r:             12px;
+            --r-lg:          16px;
         }
 
         * { box-sizing: border-box; }
@@ -38,7 +37,12 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             padding: 1.5rem 3rem;
             color: var(--text);
-            background: var(--bg);
+            background:
+                radial-gradient(ellipse at 20% 10%, rgba(56, 189, 248, 0.18) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
+                linear-gradient(145deg, #071e34 0%, #0c2d4d 50%, #081f38 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
             font-size: 1rem;
             line-height: 1.6;
             accent-color: var(--brand);
@@ -46,9 +50,13 @@
 
         h1 {
             margin: 0.5rem 0 0.25rem 0;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #bae6fd 0%, #38bdf8 55%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         h2 {
@@ -73,7 +81,7 @@
         /* ── Scrollbar ── */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 99px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--brand); }
 
         /* ── Page structure ── */
@@ -106,12 +114,17 @@
 
         /* ── Cards ── */
         .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--r-lg);
             padding: 1.25rem 0;
             margin-bottom: 1rem;
             container-type: inline-size;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.07);
         }
 
         .card-header {
@@ -143,7 +156,9 @@
 
         /* ── Recover button ── */
         #recover-last-meeting {
-            background: transparent;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--brand);
             border: 1px solid var(--brand-border);
             border-radius: var(--r-sm);
@@ -165,9 +180,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid var(--border);
+            border: 1px solid var(--glass-border);
             border-radius: var(--r);
             overflow: hidden;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
         th, td {
@@ -177,7 +195,7 @@
         }
 
         th {
-            background: var(--surface-2);
+            background: rgba(56, 189, 248, 0.08);
             font-size: 0.8125rem;
             font-weight: 600;
             color: var(--text-2);
@@ -189,7 +207,7 @@
 
         tbody tr { transition: background 0.1s; }
 
-        tbody tr:hover { background: var(--surface-2); }
+        tbody tr:hover { background: var(--glass-hover); }
 
         .meeting-title {
             border-radius: var(--r-sm);
@@ -203,12 +221,12 @@
         }
 
         .meeting-title:hover {
-            background: var(--surface-3);
+            background: var(--glass-hover);
             text-decoration: none;
         }
 
         .meeting-title:focus {
-            background: var(--surface-3);
+            background: var(--glass-hover);
             text-decoration: none;
             outline: 1px solid var(--brand-border);
         }
@@ -269,7 +287,9 @@
             display: block;
             margin: 0.75rem auto 0;
             border-radius: 100px;
-            background: transparent;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--brand);
             border: 1px solid var(--brand-border);
             padding: 0.3rem 1rem;
@@ -316,7 +336,9 @@
             border: 1px solid var(--border-brand);
             border-right: none;
             border-radius: var(--r-sm) 0 0 var(--r-sm);
-            background: var(--surface-2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: var(--text);
             font-family: inherit;
             font-size: 0.875rem;
@@ -326,13 +348,14 @@
 
         input[type="url"]:focus {
             border-color: var(--brand);
+            background: rgba(167, 139, 250, 0.06);
         }
 
         input[type="url"]::placeholder { color: var(--text-3); }
 
         button#save-webhook {
             background: var(--brand);
-            color: #07111b;
+            color: #0d0d1a;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 0 var(--r-sm) var(--r-sm) 0;
@@ -383,7 +406,7 @@
 
         .radio-item:not(:last-of-type) { margin-bottom: 0.25rem; }
 
-        .radio-item:hover { background: var(--surface-2); }
+        .radio-item:hover { background: var(--glass-hover); }
 
         input[type="radio"] {
             margin-top: 0.25rem;
@@ -419,7 +442,9 @@
 
         .integration-guide {
             padding: 0.625rem;
-            background: transparent;
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--brand-border);
             border-radius: var(--r-sm);
             display: flex;
@@ -457,7 +482,9 @@
             overflow-x: auto;
             padding: 1rem;
             border-radius: var(--r-sm);
-            background: var(--surface-2);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border);
             line-height: 1.6;
             font-size: 0.8125rem;
@@ -477,7 +504,7 @@
 <body>
 
     <div style="margin: 0 auto; max-width: 1440px;">
-        <h1>meet-transcripts</h1>
+        <h1>Meet Transcripts</h1>
 
         <section id="last-10-meetings">
             <div class="section-header">
@@ -506,7 +533,7 @@
 
         <section id="webhooks">
             <h2 style="margin-bottom: 0.25rem;">Webhooks</h2>
-            <p class="sub-text" style="margin-bottom: 1.25rem;">Connect meet-transcripts to any tool that accepts a webhook POST.</p>
+            <p class="sub-text" style="margin-bottom: 1.25rem;">Connect Meet Transcripts to any tool that accepts a webhook POST.</p>
 
             <div class="grid-container">
                 <div class="card">
