@@ -33,7 +33,7 @@ test.describe('Security', () => {
     });
 
     await page.goto(`chrome-extension://${extensionId}/popup.html`);
-    await expect(page.getByRole('heading', { name: 'meet-transcripts' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Meet Transcripts' })).toBeVisible();
 
     expect(externalRequests, `unexpected external requests: ${externalRequests.join(', ')}`).toHaveLength(0);
   });
@@ -48,7 +48,7 @@ test.describe('Security', () => {
     });
 
     await page.goto(`chrome-extension://${extensionId}/meetings.html`);
-    await expect(page.getByRole('heading', { name: 'meet-transcripts' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Meet Transcripts' })).toBeVisible();
 
     expect(externalRequests, `unexpected external requests: ${externalRequests.join(', ')}`).toHaveLength(0);
   });
@@ -62,9 +62,9 @@ test.describe('Security', () => {
     }
   });
 
-  test('manifest name is meet-transcripts', () => {
+  test('manifest name is Meet Transcripts', () => {
     const manifest = JSON.parse(fs.readFileSync(path.join(extensionPath, 'manifest.json'), 'utf-8'));
-    expect(manifest.name).toBe('meet-transcripts');
+    expect(manifest.name).toBe('Meet Transcripts');
   });
 
   test('manifest declares only expected permissions', () => {

@@ -6,7 +6,7 @@ test.describe('Meetings page', () => {
   });
 
   test('renders the page title', async ({ page }) => {
-    await expect(page.locator('h1')).toHaveText('meet-transcripts');
+    await expect(page.locator('h1')).toHaveText('Meet Transcripts');
   });
 
   test('shows the Last 10 meetings section', async ({ page }) => {

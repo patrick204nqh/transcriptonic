@@ -6,7 +6,7 @@ test.describe('Popup', () => {
   });
 
   test('renders the extension title', async ({ page }) => {
-    await expect(page.locator('h1')).toHaveText('meet-transcripts');
+    await expect(page.locator('h1')).toHaveText('Meet Transcripts');
   });
 
   test('shows Active on Google Meet status', async ({ page }) => {
